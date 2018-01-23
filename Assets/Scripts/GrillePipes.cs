@@ -40,7 +40,7 @@ public class GrillePipes : MonoBehaviour
                 }
                 else
                 {
-                    int r = Random.Range(0, 10);
+                    int r = Random.Range(0, 12);
                     if (r > 2 || i == 0 || i == size - 1 || j ==0 || j==size -1|| (i == 1 && j == debut) || (i == size - 2 && j == fin))
                     {
                         c = Instantiate<GameObject>(Case);
@@ -62,8 +62,9 @@ public class GrillePipes : MonoBehaviour
 
                 //position
                 Vector3 v = Camera.main.ScreenToWorldPoint(new Vector3(1, 1)); // bas gauche de l'écran                
-                v.x += (0.5f + i) * c.transform.localScale.x;
-                v.y += (0.5f + j + (height - grilleHeight) / 2) * c.transform.localScale.y;
+                v.x += (1 + i) * c.transform.localScale.x;
+                //v.y += (0.5f + j + (height - grilleHeight) / 2) * c.transform.localScale.y;
+                v.y += (1+ j ) * c.transform.localScale.y;
                 v.z = 0;
                 c.transform.position = v;
 
