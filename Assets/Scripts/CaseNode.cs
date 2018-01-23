@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CaseNode : MonoBehaviour {
+public class CaseNode
+{
+    public bool walkable;
+    public bool objectif;
+    public Vector2Int position;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public CaseNode[] voisines;
+
+    public CaseNode(bool walkable, Vector2Int position)
+    {
+        this.walkable = walkable;
+        this.position = position;
+    }
 }
