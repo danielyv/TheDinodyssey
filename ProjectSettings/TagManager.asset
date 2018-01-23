@@ -41,3 +41,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Drone
+    uniqueID: 4037546527
+    locked: 0
