@@ -41,6 +41,7 @@ public class GrillePipes : MonoBehaviour
                 {
                     c = Instantiate<GameObject>(PipeDebut);
                     c.name = "Debut";
+                    c.GetComponent<Case>().InitCase(false, false, new Vector2Int(i,j) );
                 }
                 else if (i == size - 1 && j == fin)
                 {
@@ -80,10 +81,10 @@ public class GrillePipes : MonoBehaviour
         }
     }
 
-    public LinkedList<int> PathFinding(int size, CaseNode debut, CaseNode fin)
+    public LinkedList<int> PathFinding(int size, Case debut, Case fin)
     {
-        LinkedList<CaseNode> marked = new LinkedList<CaseNode>();
-        List<CaseNode> verified = new List<CaseNode>();
+        LinkedList<Case> marked = new LinkedList<Case>();
+        List<Case> verified = new List<Case>();
         LinkedList<LinkedList<int>> paths = new LinkedList<LinkedList<int>>();
         LinkedList<int> finalpath = new LinkedList<int>();
 
@@ -95,10 +96,10 @@ public class GrillePipes : MonoBehaviour
 
         while (!found && marked.Count!=0)
         {
-            CaseNode current = marked.First.Value;
+            Case current = marked.First.Value;
             for(int i=0;i<4; i++)
             {
-                CaseNode next = current.voisines[i];
+                Case next = current.voisines[i];
                 if (next.objectif)
                 {
                     finalpath = paths.First.Value;

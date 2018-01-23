@@ -50,7 +50,7 @@ public class DragDrop : MonoBehaviour
                     draggingItem = true;
                     draggedObject = hit.transform.gameObject;
                     touchOffset = (Vector3)hit.transform.position - inputPosition;
-                    hit.transform.GetComponent<Tile>().PickUp();
+                    //hit.transform.GetComponent<Tile>().PickUp();
                 }
             }
         }
@@ -69,7 +69,7 @@ public class DragDrop : MonoBehaviour
     {
         draggingItem = false;
         draggedObject.transform.localScale = new Vector3(1f, 1f, -1f);
-        draggedObject.GetComponent<Tile>().Drop();
+        //draggedObject.GetComponent<Tile>().Drop();
     }
 
 }   
