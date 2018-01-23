@@ -5,26 +5,24 @@ using UnityEngine;
 public class PlatformerPlayer : MonoBehaviour {
     public float maxSpeed = 10f;
     bool facinRight = true;
+    Rigidbody2D myRigidBody;
+
     Animator anim;
     
     // Use this for initialization
     void Start () {
         anim = GetComponent<Animator>();
-	}
+        myRigidBody = GetComponent<Rigidbody2D>();
+
+    }
 
     private void FixedUpdate()
     {
         float move = Input.GetAxis("Horizontal");
         anim.SetFloat("Speed", Mathf.Abs(move));
-        GetComponent<Rigidbody2D>().velocity = new Vector2(move * maxSpeed, GetComponent<Rigidbody2D>().velocity.y);
-        if (move > 0 && !facinRight)
-        {
-            flip();
-        }
-        else if (move < 0 && facinRight)
-        {
-            flip();
-        }
+        myRigidBody.velocity = new Vector2(move*maxSpeed, myRigidBody.velocity.y);
+       
+        
     }
     void flip()
     {
