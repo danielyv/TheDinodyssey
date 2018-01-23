@@ -6,8 +6,9 @@ public class ShootScript : MonoBehaviour {
 
 	public int speed;
 
+
 	public void Go (int orientation) {
-		Vector2 direction=new Vector2();
+		Vector2 direction=new Vector2 (speed,0);
 		if(orientation == 0){
 			direction = new Vector2 (speed,0);
 		}
@@ -42,6 +43,19 @@ public class ShootScript : MonoBehaviour {
 
 	void OnBecameInvisible() {
 		// Destroy the bullet 
-		Destroy(gameObject);
+		die();
 	} 
+
+	void die() {
+		Destroy (gameObject);
+	}
+
+
+	void OnTriggerEnter2D(Collider2D col) {
+		if (col.gameObject.tag == "Enemy"){
+			die();
+			col.gameObject.GetComponent<Enemy>().damage ();
+		}
+
+	}
 }
