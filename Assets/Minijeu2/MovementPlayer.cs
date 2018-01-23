@@ -10,6 +10,7 @@ public class MovementPlayer : MonoBehaviour
 	{
 		// MoveSpeedAjustee
 		int mva = moveSpeed / 2 + moveSpeed / 4;
+
 		if (Input.GetButton("Right") && Input.GetButton("Up")) {
 			transform.eulerAngles = new Vector3 (0, 0, 0);
 			transform.Translate (Vector2.right * mva * Time.deltaTime);
