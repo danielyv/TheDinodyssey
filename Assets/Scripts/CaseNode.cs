@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Jeu1Manager : MonoBehaviour {
+public class CaseNode : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
