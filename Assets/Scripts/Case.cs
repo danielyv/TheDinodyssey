@@ -3,23 +3,42 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Case : MonoBehaviour
-{
+{   
+
+    //Selector
     public GrillePipes.CaseType t;
+    public GameObject pipe;
+
+    //pathFinding
     public bool walkable;
-    public bool objectif;
-    public bool occuped;
+    public bool objectif;    
     public Vector2Int position;
 
-    public Case[] voisines;
+    public Case[] voisines; //Gauche Haut Droite Bas
 
-    public void Start()
-    {
-        occuped= false;
-    }
-
-    public void InitCase(bool objectif,bool walkable, Vector2Int position)
+    public void InitCase(bool objectif,bool walkable)
     {
         this.walkable = walkable;
-        this.position = position;
+        this.objectif = objectif;
+    }
+
+    public void AddPipe(GameObject pipe)
+    {
+
+    }
+
+    public void OnMouseButtonUp()
+    {
+        if (t!=GrillePipes.CaseType.Case)
+        {
+            return;
+        }
+        if (PipeManager.current.dragging)
+        {
+            if (pipe!=null) {
+                
+            }
+            pipe = Instantiate<GameObject>(PipeManager.current.draggingPipe,transform) as GameObject;
+        }
     }
 }

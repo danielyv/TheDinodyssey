@@ -8,6 +8,15 @@ public class DragDrop : MonoBehaviour
     private GameObject draggedObject;
     private Vector3 touchOffset;
 
+
+    private void Start()
+    {
+        float height = Camera.main.orthographicSize * 2.0f; //hauteur
+        float width = Camera.main.orthographicSize * 2.0f * Screen.width / Screen.height; //largeur
+        float caseWidth = 0.5f*width / (GrillePipes.size * 2);
+        float grilleHeight = 0.5f *caseWidth * GrillePipes.size;
+        transform.localScale = new Vector3(caseWidth, caseWidth, -1);
+    }
     void Update()
     {
         if (HasInput)
@@ -50,7 +59,7 @@ public class DragDrop : MonoBehaviour
                     draggingItem = true;
                     draggedObject = hit.transform.gameObject;
                     touchOffset = (Vector3)hit.transform.position - inputPosition;
-                    draggedObject.transform.localScale = new Vector3(1.2f, 1.2f, -1f);
+                    draggedObject.transform.localScale *= 1.2f;
                 }
             }
         }
@@ -68,7 +77,7 @@ public class DragDrop : MonoBehaviour
     void DropItem()
     {
         draggingItem = false;
-        draggedObject.transform.localScale = new Vector3(1f, 1f, -1f);
+        draggedObject.transform.localScale /=1.2f;
     }
 
 }   
