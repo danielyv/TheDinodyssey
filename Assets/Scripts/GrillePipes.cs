@@ -14,7 +14,7 @@ public class GrillePipes : MonoBehaviour
 
     public void Start()
     {
-        size = 8;
+        size = 4;
         Generation();
     }
 

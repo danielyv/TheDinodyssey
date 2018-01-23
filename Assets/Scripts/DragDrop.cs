@@ -1,63 +1,75 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using System.Collections;
 
 public class DragDrop : MonoBehaviour
-{
-    private bool _mouseState;
-    private GameObject target;
-    private GameObject pipe;
-    public Vector3 screenSpace;
-    public Vector3 offset;
+{ 
+    private bool draggingItem = false;
+    private GameObject draggedObject;
+    private Vector3 touchOffset;
 
-    // Use this for initialization
-    void Start()
-    {
-        GameObject c = Instantiate<GameObject>(pipe);
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        // Debug.Log(_mouseState);
-        if (Input.GetMouseButtonDown(0))
+        if (HasInput)
         {
+            DragOrPickUp();
+        }
+        else
+        {
+            if (draggingItem)
+                DropItem();
+        }
+    }
 
-            RaycastHit hitInfo;
-            target = GetClickedObject(out hitInfo);
-            if (target != null)
+    Vector3 CurrentTouchPosition
+    {
+        get
+        {
+            Vector3 inputPos;
+            inputPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            return inputPos;
+        }
+    }
+
+    private void DragOrPickUp()
+    {
+        var inputPosition = CurrentTouchPosition;
+
+        if (draggingItem)
+        {
+            draggedObject.transform.position = inputPosition + touchOffset;
+        }
+        else
+        {
+            RaycastHit2D[] touches = Physics2D.RaycastAll(inputPosition, inputPosition, -1f);
+            if (touches.Length > 0)
             {
-                _mouseState = true;
-                screenSpace = Camera.main.WorldToScreenPoint(target.transform.position);
-                offset = target.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenSpace.z));
+                var hit = touches[0];
+                if (hit.transform != null && hit.transform.tag == "Tile");
+                {
+                    draggingItem = true;
+                    draggedObject = hit.transform.gameObject;
+                    touchOffset = (Vector3)hit.transform.position - inputPosition;
+                    hit.transform.GetComponent<Tile>().PickUp();
+                }
             }
         }
-        if (Input.GetMouseButtonUp(0))
-        {
-            _mouseState = false;
-        }
-        if (_mouseState)
-        {
-            //keep track of the mouse position
-            var curScreenSpace = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenSpace.z);
-
-            //convert the screen mouse position to world point and adjust with offset
-            var curPosition = Camera.main.ScreenToWorldPoint(curScreenSpace) + offset;
-
-            //update the position of the object in the world
-            target.transform.position = curPosition;
-        }
     }
 
-
-    GameObject GetClickedObject(out RaycastHit hit)
+    private bool HasInput
     {
-        GameObject target = null;
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray.origin, ray.direction * 10, out hit))
+        get
         {
-            target = hit.collider.gameObject;
+            // returns true if either the mouse button is down or at least one touch is felt on the screen
+            return Input.GetMouseButton(0);
         }
-
-        return target;
     }
-}
+
+    void DropItem()
+    {
+        draggingItem = false;
+        draggedObject.transform.localScale = new Vector3(1f, 1f, -1f);
+        draggedObject.GetComponent<Tile>().Drop();
+    }
+
+}   
