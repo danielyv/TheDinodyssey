@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class ShootScript : MonoBehaviour {
 
-	public int speed=8;
-	public Vector2 direction;
-	public int orientation;
+	public int speed;
 
-	public void Go () {
+	public void Go (int orientation) {
+		Vector2 direction=new Vector2();
 		if(orientation == 0){
 			direction = new Vector2 (speed,0);
 		}
@@ -16,6 +15,7 @@ public class ShootScript : MonoBehaviour {
 			direction = new Vector2 (speed/2 + speed/4,speed/2 + speed/4);
 		}
 		else if(orientation == 90){
+			
 			direction = new Vector2 (0,speed);
 		}
 		else if(orientation == 135){
@@ -33,8 +33,15 @@ public class ShootScript : MonoBehaviour {
 		else if(orientation == 315){
 			direction = new Vector2 ((speed/2 + speed/4),-(speed/2 + speed/4));
 		}
+
+		transform.eulerAngles = new Vector3 (0, 0, orientation);
 		Rigidbody2D r2d = GetComponent<Rigidbody2D>() as Rigidbody2D;
 
 		r2d.velocity = direction;
 	}
+
+	void OnBecameInvisible() {
+		// Destroy the bullet 
+		Destroy(gameObject);
+	} 
 }
