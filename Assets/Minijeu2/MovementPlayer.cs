@@ -32,52 +32,41 @@ public class MovementPlayer : MonoBehaviour
 		// MoveSpeedAjustee
 		float mva = (moveSpeed / 2 + moveSpeed / 4);
 
+		transform.eulerAngles = new Vector3 (0, 0, 0);
+//
 		if (Input.GetButton ("Right") && Input.GetButton ("Up")) {
-			transform.eulerAngles = new Vector3 (0, 0, 0);
 			transform.Translate (Vector2.right * mva * Time.deltaTime);
 			transform.Translate (Vector2.up * mva * Time.deltaTime);
-			transform.eulerAngles = new Vector3 (0, 0, 45);
 
 		} else if (Input.GetButton ("Right") && Input.GetButton ("Down")) {
-			transform.eulerAngles = new Vector3 (0, 0, 0);
 			transform.Translate (Vector2.right * mva * Time.deltaTime);
 			transform.Translate (Vector2.down * mva * Time.deltaTime);
-			transform.eulerAngles = new Vector3 (0, 0, 315);
 
 		} else if (Input.GetButton ("Left") && Input.GetButton ("Up")) {
-			transform.eulerAngles = new Vector3 (0, 0, 0);
 			transform.Translate (Vector2.left * mva * Time.deltaTime);
 			transform.Translate (Vector2.up * mva * Time.deltaTime);
-			transform.eulerAngles = new Vector3 (0, 0, 135);
-
 
 		} else if (Input.GetButton ("Left") && Input.GetButton ("Down")) {
-			transform.eulerAngles = new Vector3 (0, 0, 0);
 			transform.Translate (Vector2.left * mva * Time.deltaTime);
 			transform.Translate (Vector2.down * mva * Time.deltaTime);
-			transform.eulerAngles = new Vector3 (0, 0, 225);
 
 		} else if (Input.GetButton ("Right")) {
-			transform.eulerAngles = new Vector3 (0, 0, 0);
 			transform.Translate (Vector2.right * moveSpeed * Time.deltaTime);
-			transform.eulerAngles = new Vector3 (0, 0, 0);
 
 		} else if (Input.GetButton ("Left")) {
-			transform.eulerAngles = new Vector3 (0, 0, 0);
 			transform.Translate (Vector2.left * moveSpeed * Time.deltaTime);
-			transform.eulerAngles = new Vector3 (0, 0, 180);
 
 		} else if (Input.GetButton ("Up")) {
-			transform.eulerAngles = new Vector3 (0, 0, 0);
 			transform.Translate (Vector2.up * moveSpeed * Time.deltaTime);
-			transform.eulerAngles = new Vector3 (0, 0, 90);
-
 
 		} else if (Input.GetButton ("Down")) {
-			transform.eulerAngles = new Vector3 (0, 0, 0);
 			transform.Translate (Vector2.down * moveSpeed * Time.deltaTime);
-			transform.eulerAngles = new Vector3 (0, 0, 270);
 		}
+
+		Vector3 pos = Camera.main.WorldToScreenPoint(transform.position);
+		Vector3 dir = Input.mousePosition - pos;
+		float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+		transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 	}
 
 	public void resetForces() {
@@ -85,17 +74,29 @@ public class MovementPlayer : MonoBehaviour
 		rb.angularVelocity = 0f;
 	}
 
+	public void fireBullets() {
+		lastPressed = Time.time;
+		Vector3 pos = Camera.main.WorldToScreenPoint(transform.position);
+		Vector3 dir = Input.mousePosition - pos;
+		float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+
+		GameObject bullet1 = Instantiate<GameObject> (Bullet, a.transform.position, Quaternion.identity);
+		GameObject bullet2 = Instantiate<GameObject> (Bullet, b.transform.position, Quaternion.identity);
+//		GameObject bullet3 = Instantiate<GameObject> (Bullet, c.transform.position, Quaternion.identity);
+//		bullet1.GetComponent<ShootScript> ().Go (Mathf.RoundToInt (transform.eulerAngles.z));
+//		bullet2.GetComponent<ShootScript> ().Go (Mathf.RoundToInt (transform.eulerAngles.z));
+		bullet1.GetComponent<ShootScript> ().Go (Mathf.RoundToInt(angle), dir.x, dir.y);
+		bullet2.GetComponent<ShootScript> ().Go (Mathf.RoundToInt(angle), dir.x, dir.y);
+	}
+
 	public void fire() {
-		if (Input.GetButton ("Fire") && lastPressed < Time.time - fireRate) {
-			lastPressed = Time.time;
-			GameObject bullet1 = Instantiate<GameObject> (Bullet, a.transform.position, Quaternion.identity);
-			GameObject bullet2 = Instantiate<GameObject> (Bullet, b.transform.position, Quaternion.identity);
-			GameObject bullet3 = Instantiate<GameObject> (Bullet, c.transform.position, Quaternion.identity);
-			bullet1.GetComponent<ShootScript> ().Go (Mathf.RoundToInt (transform.eulerAngles.z));
-			bullet2.GetComponent<ShootScript> ().Go (Mathf.RoundToInt (transform.eulerAngles.z));
-			bullet3.GetComponent<ShootScript> ().Go (Mathf.RoundToInt (transform.eulerAngles.z));
+		if (lastPressed < Time.time - fireRate) {
+			if (Input.GetButton("Fire")) {
+				fireBullets ();
+			}
 		}
 	}
+
 
 	public void damage() {
 		hp--;

@@ -6,39 +6,10 @@ public class ShootScript : MonoBehaviour {
 
 	public int speed;
 
-
-	public void Go (int orientation) {
-		Vector2 direction=new Vector2 (speed,0);
-		if(orientation == 0){
-			direction = new Vector2 (speed,0);
-		}
-		else if(orientation == 45){
-			direction = new Vector2 (speed/2 + speed/4,speed/2 + speed/4);
-		}
-		else if(orientation == 90){
-			
-			direction = new Vector2 (0,speed);
-		}
-		else if(orientation == 135){
-			direction = new Vector2 (-(speed/2 + speed/4),(speed/2 + speed/4));
-		}
-		else if(orientation == 180){
-			direction = new Vector2 (-speed,0);
-		}
-		else if(orientation == 225){
-			direction = new Vector2 (-(speed/2 + speed/4),-(speed/2 + speed/4));
-		}
-		else if(orientation == 270){
-			direction = new Vector2 (0,-speed);
-		}
-		else if(orientation == 315){
-			direction = new Vector2 ((speed/2 + speed/4),-(speed/2 + speed/4));
-		}
-
+	public void Go (int orientation,float dirx, float diry) {
 		transform.eulerAngles = new Vector3 (0, 0, orientation);
 		Rigidbody2D r2d = GetComponent<Rigidbody2D>() as Rigidbody2D;
-
-		r2d.velocity = direction;
+		r2d.velocity = new Vector2(dirx/speed,diry/speed);
 	}
 
 	void OnBecameInvisible() {
@@ -52,9 +23,12 @@ public class ShootScript : MonoBehaviour {
 
 
 	void OnTriggerEnter2D(Collider2D col) {
-		if (col.gameObject.tag == "Enemy"){
-			die();
-			col.gameObject.GetComponent<Enemy>().damage ();
+		if (col.gameObject.tag == "Enemy") {
+			die ();
+			col.gameObject.GetComponent<Enemy> ().damage ();
+		} else if (col.gameObject.tag == "SpaceshipPlayer") {
+			die ();
+			col.gameObject.GetComponent<MovementPlayer> ().damage ();
 		}
 
 	}

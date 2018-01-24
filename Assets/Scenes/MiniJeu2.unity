@@ -198,10 +198,25 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 114470040232084362, guid: f3517a9df69b84d449be84d46eda3f7c,
+    - target: {fileID: 96233456600724486, guid: f3517a9df69b84d449be84d46eda3f7c,
         type: 2}
-      propertyPath: hp
-      value: 10
+      propertyPath: m_MotionVectors
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 96233456600724486, guid: f3517a9df69b84d449be84d46eda3f7c,
+        type: 2}
+      propertyPath: m_Time
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 96233456600724486, guid: f3517a9df69b84d449be84d46eda3f7c,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 96233456600724486, guid: f3517a9df69b84d449be84d46eda3f7c,
+        type: 2}
+      propertyPath: m_DynamicOccludee
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f3517a9df69b84d449be84d46eda3f7c, type: 2}
