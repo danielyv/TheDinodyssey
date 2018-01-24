@@ -33,13 +33,13 @@ public class PlatformerPlayer : MonoBehaviour {
         {
             restartCurrentScene();
                 }
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.D)||Input.GetKey(KeyCode.RightArrow))
         {
             anim.SetFloat("Speed", 1);
 
             moveRight(speed);
         }
-        else if (Input.GetKey(KeyCode.Q))
+        else if (Input.GetKey(KeyCode.Q)||Input.GetKey(KeyCode.LeftArrow))
         {
             anim.SetFloat("Speed", 1);
 
