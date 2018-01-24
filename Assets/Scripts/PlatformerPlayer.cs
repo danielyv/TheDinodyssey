@@ -19,13 +19,20 @@ public class PlatformerPlayer : MonoBehaviour {
 
     private void Update()
     {
-        
+        if (stars == 26)
+        {
+            //TODO END
+        }
         InputMovement();
 
     }
     void InputMovement()
     {
-
+       
+        if (Input.GetKey(KeyCode.Return))
+        {
+            restartCurrentScene();
+                }
         if (Input.GetKey(KeyCode.D))
         {
             anim.SetFloat("Speed", 1);
@@ -81,5 +88,9 @@ public class PlatformerPlayer : MonoBehaviour {
         theScale.y *= -1;
         transform.localScale = theScale;
     }
-    
+    public static void restartCurrentScene()
+    {
+        Application.LoadLevel(Application.loadedLevel);
+
+    }
 }
