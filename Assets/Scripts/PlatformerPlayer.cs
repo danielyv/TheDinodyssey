@@ -19,14 +19,7 @@ public class PlatformerPlayer : MonoBehaviour {
 
     private void Update()
     {
-        /*
         
-        myRigidBody.velocity = new Vector2(move*maxSpeed, myRigidBody.velocity.y);
-        if (Input.GetButtonDown("Jump"))
-        {
-            Physics.gravity *= -1;
-        }*/
-
         InputMovement();
 
     }
