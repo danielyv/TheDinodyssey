@@ -6,7 +6,7 @@ public class CameraPlatformer : MonoBehaviour {
     Transform childGO;
     // Use this for initialization
     void Start () {
-		childGO = transform.parent.FindChild("Drone");
+		childGO = transform.parent.Find("Drone");
     }
 
     // Update is called once per frame
