@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class MovementPlayer : MonoBehaviour
 {
-	public int hp = 10;
+	public int hp = 9;
 	public float moveSpeed = 25;
 	public GameObject Bullet;
 	public float fireRate = 0.2f;
@@ -12,8 +14,11 @@ public class MovementPlayer : MonoBehaviour
 
 	private float lastPressed = 0f;
 	private Rigidbody2D rb;
+	public Hp sl;
 
-
+	void Awake() {
+		sl = GameObject.Find ("Health Bar").GetComponent<Hp> ();
+	}
 	void Start() {
 		rb = gameObject.GetComponent<Rigidbody2D> ();
 		a = transform.Find ("AShoot").gameObject;
@@ -33,7 +38,7 @@ public class MovementPlayer : MonoBehaviour
 		float mva = (moveSpeed / 2 + moveSpeed / 4);
 
 		transform.eulerAngles = new Vector3 (0, 0, 0);
-//
+
 		if (Input.GetButton ("Right") && Input.GetButton ("Up")) {
 			transform.Translate (Vector2.right * mva * Time.deltaTime);
 			transform.Translate (Vector2.up * mva * Time.deltaTime);
@@ -101,9 +106,11 @@ public class MovementPlayer : MonoBehaviour
 
 	public void damage() {
 		hp--;
+		sl.changeHP (hp);
 		if (hp <=0) {
 			die ();
 		}
+
 	}
 
 	public void die() {
