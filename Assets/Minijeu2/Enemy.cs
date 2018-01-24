@@ -5,19 +5,30 @@ using UnityEngine;
 public class Enemy : MonoBehaviour {
 
 	public float hp = 1;
-
+	public GameObject Bullet;
+	public float moveSpeed = 12;
 	public float speedX = 12;
 	public float speedY = 0;
-
 	public bool canShoot;
 	public float fireRate = 0.5f;
 
+
+
+
 	private Rigidbody2D rb;
 
-
+	void Awake() {
+		rb = gameObject.GetComponent<Rigidbody2D> ();
+	}
+		
 	// Use this for initialization
 	void Start () {
 		rb = gameObject.GetComponent<Rigidbody2D> ();
+		if (canShoot) {
+			fireRate = fireRate+(Random.Range(fireRate/-2,fireRate/2));
+			InvokeRepeating ("Shoot", fireRate, fireRate);
+		}
+			
 	}
 	
 	// Update is called once per frame
@@ -29,7 +40,7 @@ public class Enemy : MonoBehaviour {
 
 	void movements () {
 		//transform.eulerAngles = new Vector2 (0, 0);
-		rb.velocity = new Vector2(-speedX, speedY);
+		rb.velocity = new Vector2(speedX, speedY);
 
 	}
 
@@ -55,6 +66,7 @@ public class Enemy : MonoBehaviour {
 
 			if (col.gameObject.tag == "SpaceshipPlayer") {
 				col.gameObject.GetComponent<MovementPlayer>().damage ();
+				die ();
 			}
 		}
 	}
@@ -62,5 +74,10 @@ public class Enemy : MonoBehaviour {
 	void OnBecameInvisible() {
 		die();
 	} 
+
+	void Shoot () {
+		GameObject temp = Instantiate<GameObject> (Bullet, transform.position, Quaternion.identity);
+		temp.GetComponent<ShootScript> ().TirEnemy (speedX, speedY);
+	}
 
 }

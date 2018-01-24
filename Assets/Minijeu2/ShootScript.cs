@@ -4,18 +4,31 @@ using UnityEngine;
 
 public class ShootScript : MonoBehaviour {
 
-	public int speed;
+	private float start;
 
-	public void Go (int orientation,float dirx, float diry) {
+	public void Start() {
+		start = Time.time;
+	}
+
+
+	public void Go (float orientation,float dirx, float diry) {
+//		if (start < Time.time -3) {
+//			die ();
+//		}
 		transform.eulerAngles = new Vector3 (0, 0, orientation);
 		Rigidbody2D r2d = GetComponent<Rigidbody2D>() as Rigidbody2D;
-		r2d.velocity = new Vector2(dirx/speed,diry/speed);
+		r2d.velocity = new Vector2 (dirx/10, diry/10);
+	}
+
+	public void TirEnemy(float dirx, float diry) {
+		Rigidbody2D r2d = GetComponent<Rigidbody2D>() as Rigidbody2D;
+		r2d.velocity = new Vector2 (dirx*2, diry*2);
 	}
 
 	void OnBecameInvisible() {
 		// Destroy the bullet 
 		die();
-	} 
+	}
 
 	void die() {
 		Destroy (gameObject);

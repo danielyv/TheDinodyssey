@@ -79,14 +79,15 @@ public class MovementPlayer : MonoBehaviour
 		Vector3 pos = Camera.main.WorldToScreenPoint(transform.position);
 		Vector3 dir = Input.mousePosition - pos;
 		float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+		float dist = Vector3.Distance (pos, Input.mousePosition)*0.002f;
 
 		GameObject bullet1 = Instantiate<GameObject> (Bullet, a.transform.position, Quaternion.identity);
 		GameObject bullet2 = Instantiate<GameObject> (Bullet, b.transform.position, Quaternion.identity);
 //		GameObject bullet3 = Instantiate<GameObject> (Bullet, c.transform.position, Quaternion.identity);
 //		bullet1.GetComponent<ShootScript> ().Go (Mathf.RoundToInt (transform.eulerAngles.z));
 //		bullet2.GetComponent<ShootScript> ().Go (Mathf.RoundToInt (transform.eulerAngles.z));
-		bullet1.GetComponent<ShootScript> ().Go (Mathf.RoundToInt(angle), dir.x, dir.y);
-		bullet2.GetComponent<ShootScript> ().Go (Mathf.RoundToInt(angle), dir.x, dir.y);
+		bullet1.GetComponent<ShootScript> ().Go (angle, dir.x/dist, dir.y/dist);
+		bullet2.GetComponent<ShootScript> ().Go (angle, dir.x/dist, dir.y/dist);
 	}
 
 	public void fire() {
