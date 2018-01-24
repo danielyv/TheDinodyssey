@@ -7,10 +7,23 @@ public class Start : MonoBehaviour {
 
 	public void PlayGame()
     {
-        SceneManager.LoadScene("MiniJeu1");
+        SceneManager.LoadScene("A");
     }
     public void Quit()
     {
         Application.Quit();
+    }
+
+    public void PlayGame1()
+    {
+        SceneManager.LoadScene("MiniJeu1");
+    }
+    public void PlayGame2()
+    {
+        SceneManager.LoadScene("MiniJeu2");
+    }
+    public void PlayGame3()
+    {
+        SceneManager.LoadScene("MiniJeu3");
     }
 }
