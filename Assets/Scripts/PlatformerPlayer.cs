@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlatformerPlayer : MonoBehaviour {
     public float speed = 10f;
@@ -21,7 +22,7 @@ public class PlatformerPlayer : MonoBehaviour {
     {
         if (stars == 26)
         {
-            //TODO END
+            ScreenManager.LoadScene("A");
         }
         InputMovement();
 
