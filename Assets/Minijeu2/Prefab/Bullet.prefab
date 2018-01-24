@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 114708958859936366}
   - component: {fileID: 50511949697239238}
   - component: {fileID: 60246666009195986}
+  - component: {fileID: 114963456909030570}
   m_Layer: 11
   m_Name: Bullet
   m_TagString: Bullet
@@ -106,7 +107,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9563f216ca34ccd46a6ef469ed124340, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+--- !u!114 &114963456909030570
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1850664457320810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d707422f38def948af1890bf339f4f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MusicClip: {fileID: 8300000, guid: aa847f74de9f90b46ad62bbab490b351, type: 3}
+  MusicSource: {fileID: 82268798498130680, guid: ea327dda96256a84e86fa8675636b2d4,
+    type: 2}
 --- !u!212 &212055170098424148
 SpriteRenderer:
   m_ObjectHideFlags: 1
