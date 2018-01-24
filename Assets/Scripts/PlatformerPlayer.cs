@@ -22,7 +22,7 @@ public class PlatformerPlayer : MonoBehaviour {
     {
         if (stars == 26)
         {
-            ScreenManager.LoadScene("A");
+            SceneManager.LoadScene("A");
         }
         InputMovement();
 
