@@ -4191,7 +4191,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 0/24 Etoiles
+  m_Text: 0/26 Etoiles
 --- !u!222 &1970556220
 CanvasRenderer:
   m_ObjectHideFlags: 0
