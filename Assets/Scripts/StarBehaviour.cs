@@ -16,8 +16,16 @@ public class StarBehaviour : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Destroy(this);
-        //PlatformerPlayer.stars++;
+        if (collision.gameObject.name == "Drone")
+        {
+
+
+            PlatformerPlayer.stars++;
+            GetComponent<Renderer>().enabled = false;
+
+            Destroy(this);
+
+        }
     }
 }
 

@@ -81,5 +81,5 @@ public class PlatformerPlayer : MonoBehaviour {
         theScale.y *= -1;
         transform.localScale = theScale;
     }
-    // Update is called once per frame
+    
 }
