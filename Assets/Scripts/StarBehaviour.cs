@@ -20,3 +20,4 @@ public class StarBehaviour : MonoBehaviour {
         //PlatformerPlayer.stars++;
     }
 }
+
